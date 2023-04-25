@@ -25,7 +25,7 @@
           <div class="solution_body">
             <div class="left_solution">
               <button class="bg-success" type="submit"> Breaking Captcha</button>
-            <div class="">
+            <div class="solution_progress">
               <label for="progre">Progress:</label>
               <div class="progress">
                 
@@ -33,12 +33,26 @@
               </div>
             </div>
              
-              {% include 'RatingStar.html' %}
+            
             </div>
             <div class="right_solution">
               <textarea name="solution" id="solution" cols="30" rows="10"></textarea>
+             
             </div>
           </div>
+      
+        </div>
+        <div class="feedback">
+          <div class="ratting">
+            {% include 'RatingStar.html' %}
+          </div>
+      <div class="feedback_comment">
+        <textarea name="solution" id="solution" cols="30" rows="10" placeholder="Your feedback is important to us. Please leave a comment and rating for our solutions. Thank you!"></textarea>
+        <div class="comment_button">
+          <button type="button" class="btn btn-dark btn-lg btn-block w-100">Comment</button>
+
+        </div>
+</div>
         </div>
       </div>
       <div id="API" class="tab-pane">
