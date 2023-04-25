@@ -9,5 +9,6 @@ urlpatterns = [
     path('textDetection/', views.textDetection, name="textDetection"),
     path('voiceDetection/', views.voiceDetection, name="voiceDetection"),
     path('members/', include('django.contrib.auth.urls')),
-    path('members/', include('members.urls'))
+    path('members/', include('members.urls')),
+    path('upload-image/', views.uploadFile, name='uploadFile'),
 ]

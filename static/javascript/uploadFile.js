@@ -44,7 +44,8 @@ uploadForm.addEventListener('submit', function (e) {
   progressBar.style.width = '0%'
 
   // Get form data
-  var formData = new FormData(uploadForm)
+  const formData = new FormData()
+  formData.append('file', uploadBtn.files[0])
 
   // Send form data via AJAX
   var xhr = new XMLHttpRequest()
@@ -52,7 +53,6 @@ uploadForm.addEventListener('submit', function (e) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
-        alert('Upload successful!')
         progressBar.style.width = '100%'
         uploadSubmit.disabled = true
       } else {
@@ -67,8 +67,9 @@ uploadForm.addEventListener('submit', function (e) {
       progressBar.style.width = percentComplete + '%'
     }
   })
+  console.log('format data', formData)
+  xhr.open('POST', uploadForm.action, true)
 
-  xhr.open('POST', 'upload.php')
   xhr.send(formData)
 })
 
