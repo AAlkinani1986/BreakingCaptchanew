@@ -1,0 +1,26 @@
+.solution_title{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    
+}
+.solution_title h3{
+    padding-bottom: 0% !important;
+    color: rgb(117, 117, 117) !important;
+    border-bottom: 1px dashed rgb(54, 54, 54) !important; ;
+}
+.solution_body{
+    display: flex;
+}
+.right_solution{
+    flex-grow: 1;
+    margin-left: 15px;
+  
+}
+.right_solution textarea{
+    border: 2px solid rgb(211, 211, 211);
+    padding: 10px;
+}

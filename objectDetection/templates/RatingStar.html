@@ -23,27 +23,22 @@
   let star = document.querySelectorAll('input');
 let showValue = document.querySelector('#rating-value');
   // Fetch the base value from the database
-  let baseValue = '{{ rateValue }}'; 
-let disabled = '{{ disabled }}'
+
 // Set the base value as the initial value for the star rating
 for (let i = 0; i < star.length; i++) {
-  if (star[i].value == baseValue) {
+  if (star[i].value == 0) {
     star[i].checked = true;
     break;
   }
 }
-if(!disabled){
-  for (let i = 0; i < star.length; i++) {
-    star[i].disabled = true;
-  }
-}else{
+
   for (let i = 0; i < star.length; i++) {
 	star[i].addEventListener('click', function() {
 		i = this.value;
 
 		showValue.innerHTML = i + " out of 5";
 	});
-}}
+}
 
 
 </script>

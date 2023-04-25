@@ -18,6 +18,28 @@
       <div id="home" class="tab-pane active">
         <h3>Breaking Captcha Solution</h3>
         {% include 'uploadFile.html' %}
+        <div class="solution">
+          <div class="solution_title">
+            <h3>Solution</h3>
+          </div>
+          <div class="solution_body">
+            <div class="left_solution">
+              <button class="bg-success" type="submit"> Breaking Captcha</button>
+            <div class="">
+              <label for="progre">Progress:</label>
+              <div class="progress">
+                
+                <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+              </div>
+            </div>
+             
+              {% include 'RatingStar.html' %}
+            </div>
+            <div class="right_solution">
+              <textarea name="solution" id="solution" cols="30" rows="10"></textarea>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="API" class="tab-pane">
         <h3>API</h3>
