@@ -111,6 +111,8 @@ function updateInput(files) {
     for (let i = 0; i < files.length; i++) {
       fileNames.push(files[i].name)
     }
+    dropzone.style.color = 'red'
+    dropzone.style.fontWeight = 'bold'
     dropzone.innerHTML = fileNames.join(', ')
     uploadSubmit.disabled = false
   } else {
