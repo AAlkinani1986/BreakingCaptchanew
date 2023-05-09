@@ -1,9 +1,10 @@
-const dropzone = document.getElementById('dropzone')
-const uploadBtn = document.getElementById('upload-btn')
-const uploadForm = document.getElementById('upload-form')
-const uploadSubmit = document.getElementById('upload-submit')
-const progressBar = document.querySelector('.progress-bar')
 
+let dropzone = document.getElementById('dropzone')
+let uploadBtn = document.getElementById('upload-btn')
+let uploadForm = document.getElementById('upload-form')
+let uploadSubmit = document.getElementById('upload-submit')
+let progressBar = document.querySelector('.progress-bar')
+let uploadedImage = document.getElementById('uploaded-image')
 function handleDragOver(e) {
   e.preventDefault()
   e.stopPropagation()
@@ -21,7 +22,7 @@ function handleDrop(e) {
   e.stopPropagation()
   dropzone.classList.remove('border-primary')
 
-  const files = e.dataTransfer.files
+  let files = e.dataTransfer.files
 
   // Check if the file is an image
   var isImage = /^image\//.test(files[0].type)
@@ -32,14 +33,14 @@ function handleDrop(e) {
   }
 
   // Get form data
-  const formData = new FormData()
+  let formData = new FormData()
   formData.append('file', files[0])
 
   // Send form data via AJAX
-  const xhr = new XMLHttpRequest()
+  let xhr = new XMLHttpRequest()
   xhr.upload.addEventListener('progress', function (e) {
     if (e.lengthComputable) {
-      const percentComplete = (e.loaded / e.total) * 100
+      let percentComplete = (e.loaded / e.total) * 100
 
       progressBar.style.width = percentComplete.toFixed(0) + '%'
       progressBar.innerHTML = percentComplete.toFixed(0) + '%'
@@ -60,12 +61,12 @@ function handleDrop(e) {
   xhr.open('POST', uploadForm.action, true)
   xhr.send(formData)
 
-  // Update file input and submit button
+  // Update file input and submixt button
   updateInput(files)
 }
 
 function handleInputChange() {
-  const files = uploadBtn.files
+  let files = uploadBtn.files
   updateInput(files)
 }
 
@@ -76,11 +77,11 @@ function handleFormSubmit(e) {
   progressBar.style.width = '0%'
 
   // Get form data
-  const formData = new FormData()
+  let formData = new FormData()
   formData.append('file', uploadBtn.files[0])
 
   // Send form data via AJAX
-  const xhr = new XMLHttpRequest()
+  let xhr = new XMLHttpRequest()
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -95,7 +96,7 @@ function handleFormSubmit(e) {
 
   xhr.upload.addEventListener('progress', function (e) {
     if (e.lengthComputable) {
-      const percentComplete = (e.loaded / e.total) * 100
+      let percentComplete = (e.loaded / e.total) * 100
       progressBar.style.width = percentComplete.toFixed(0) + '%'
       progressBar.innerHTML = percentComplete.toFixed(0) + '%'
     }
@@ -107,13 +108,20 @@ function handleFormSubmit(e) {
 
 function updateInput(files) {
   if (files.length > 0) {
-    const fileNames = []
+    let fileNames = []
     for (let i = 0; i < files.length; i++) {
       fileNames.push(files[i].name)
     }
-    dropzone.style.color = 'red'
-    dropzone.style.fontWeight = 'bold'
-    dropzone.innerHTML = fileNames.join(', ')
+    let url = URL.createObjectURL(files[0])
+    uploadedImage.src = url
+    // uploadedImage.style.display = 'block'
+    dropzone.style.display = 'none'
+    uploadedImage.style.cssText =
+      'display:block; max-width: 100%; max-height: 100%; width: auto; height: auto; margin: auto; border: 2px dashed #ccc;'
+
+    // dropzone.style.color = 'red'
+    // dropzone.style.fontWeight = 'bold'
+    // dropzone.innerHTML = fileNames.join(', ')
     uploadSubmit.disabled = false
   } else {
     dropzone.innerHTML =

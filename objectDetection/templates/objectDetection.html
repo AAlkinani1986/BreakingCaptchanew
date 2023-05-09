@@ -17,11 +17,42 @@
     <div class="tab-content">
       <div id="home" class="tab-pane active">
         <h3>Breaking Captcha Solution</h3>
-        
+        {% include 'uploadFile.html' %}
+      <div class="solution">
+        <div class="solution_title">
+          <h3>Solution</h3>
+        </div>
+        <div class="solution_body">
+          <div class="left_solution">
+            <button id="crackButton" onclick="startCracking()" class="bg-success" type="submit"> Breaking Captcha</button>
+            <div class="solution_progress">
+              <label for="progre">Progress:</label>
+              <div class="progress">
+                <div id="progressBC" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+              </div>
+            </div>
+          </div>
+          <div class="right_solution">
+            <textarea name="solution" id="solution" cols="30" rows="10" disabled></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="feedback">
+        <div class="ratting">
+          {% include 'RatingStar.html' %}
+        </div>
+        <div class="feedback_comment">
+          <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Your feedback is important to us. Please leave a comment and rating for our solutions. Thank you!"></textarea>
+          <div class="comment_button">
+            <button type="button" class="btn btn-dark btn-lg btn-block w-100">Comment</button>
+          </div>
+        </div>
+      </div>
+      </div>
       </div>
       <div id="API" class="tab-pane">
         <h3>API</h3>
-        
+        dadsadsa
       </div>
     
     </div>
