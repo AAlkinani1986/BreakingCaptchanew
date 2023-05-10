@@ -72,13 +72,14 @@
         </div>
       </div>
       <div class="feedback">
+        {% csrf_token %}
         <div class="ratting">
           {% include 'RatingStar.html' %}
         </div>
         <div class="feedback_comment">
           <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Your feedback is important to us. Please leave a comment and rating for our solutions. Thank you!"></textarea>
           <div class="comment_button">
-            <button type="button" class="btn btn-dark btn-lg btn-block w-100">Comment</button>
+            <button id="btnComment" onclick="comment()" type="button" class="btn btn-dark btn-lg btn-block w-100">Comment</button>
           </div>
         </div>
       </div>
@@ -92,17 +93,21 @@
 
    
     <script>
-      
+      var comment_id =  ""
       function APIstartCracking() {
        
          // disable the button after it's clicked
         document.getElementById("crackButton").disabled = true;
+       
         const xhr = new XMLHttpRequest();
+       
         xhr.open('GET', '/api-text-detection/');
         xhr.onload = function() {
           if (xhr.status === 200) {
             const data = JSON.parse(xhr.responseText);
-            showTypingAnimation(data);
+            comment_id = data.id
+            alert(comment_id)
+            showTypingAnimation(data.data);
             // Do something with the result
           } else {
             alert('Request failed. Status code: ' + xhr.status);
@@ -110,6 +115,33 @@
         };
         xhr.send();
       }
+      function comment(){
+              
+        var comment = document.getElementById("comment").value;
+        var stRating = document.getElementById("rating-value").innerHTML;
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const xhr = new XMLHttpRequest();
+       
+        xhr.open('POST', '/update-comment/');
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert("Your comment has been sent.");
+            } else {
+                alert('Request failed. Status code: ' + xhr.status);
+            }
+        };
+        console.log(comment_id,comment, stRating)
+        var data = JSON.stringify({
+            'comment_id': comment_id,
+            'comment': comment,
+            'stRating': stRating
+        })
+        alert(data)
+        xhr.send(data);
+       }
+      
       function showTypingAnimation(data) {
         const textarea = document.getElementById('solution');
         const animationDelay = 100; // Delay between each character being typed

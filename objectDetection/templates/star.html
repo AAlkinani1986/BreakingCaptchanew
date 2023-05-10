@@ -38,9 +38,10 @@
 
   var starPercentage = "{{ rateValue }}" / 5 * 100;
   var starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-  var name = "{{ name }}";
-  document.querySelector(`.${name} .stars-inner`).style.width = starPercentageRounded;
+  var name = "rate{{name}}";
   console.log(`.${name} .stars-inner`);
+  document.querySelector(`.${name} .stars-inner`).style.width = starPercentageRounded;
+ 
 
 
 </script>

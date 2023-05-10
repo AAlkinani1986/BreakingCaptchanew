@@ -14,4 +14,5 @@ urlpatterns = [
     path("members/", include("members.urls")),
     path("upload-image/", views.uploadFile, name="uploadFile"),
     path("api-text-detection/", views.APITextDetection, name="api-text-detection"),
+    path("update-comment/", views.commentUpdate, name="update-comment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
