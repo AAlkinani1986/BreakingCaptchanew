@@ -176,5 +176,26 @@
 
     {% endfor %} {% endif %} {% block content %} {% endblock %}
   </body>
- 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toasts = document.querySelectorAll('.toast');
+      var toastLiveTime = 5000; // 5 seconds
+  
+      toasts.forEach(function(toast) {
+        var toastLiveTimeout = setTimeout(function() {
+          toast.remove();
+        }, toastLiveTime);
+  
+        toast.addEventListener('mouseenter', function() {
+          clearTimeout(toastLiveTimeout);
+        });
+  
+        toast.addEventListener('mouseleave', function() {
+          toastLiveTimeout = setTimeout(function() {
+            toast.remove();
+          }, toastLiveTime);
+        });
+      });
+    });
+  </script>
 </html>
