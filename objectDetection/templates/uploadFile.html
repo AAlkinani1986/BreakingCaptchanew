@@ -3,169 +3,25 @@
 <div class="container">
 	<div class="row mt-5">
 		<div class="col-md-6 offset-md-3">
-			<form id="upload-form{{id}}" action="{% url 'uploadFile' %}" enctype="multipart/form-data">
+			<form id="upload-form" action="{% url 'uploadFile' %}" enctype="multipart/form-data">
 				{% csrf_token %}
-				<div class="dropzone" id="dropzone{{id}}">
+				<div class="dropzone" id="dropzone">
 					<i class="fas fa-cloud-upload-alt"></i>
 					<div class="text-muted">Drag and drop files here or click to select files</div>
-					<input type="file" name="file" id="upload-btn{{id}}" accept="image/*">
+					<input class="upload-btn" type="file" name="file" id="upload-btn" accept="image/*">
 				</div>
-				<img class="imageBOX" id="uploaded-image{{id}}" style="display:none">
+				<img class="imageBOX" id="uploaded-image" style="display:none">
 				<div class="progress">
-					<div class="progress-bar{{id}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+					<div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				
-				<button type="submit" class="btn btn-primary mt-3" id="upload-submit{{id}}" disabled>Upload</button>
+				<button type="submit" class="btn btn-primary mt-3" id="upload-submit" disabled>Upload</button>
 			</form>
 			
 		</div>
 	</div>
-	<script>
-		console.log('id:', `{{id}}`)
 
-var dropzone = document.getElementById('dropzone{{id}}')
-var uploadBtn = document.getElementById('upload-btn{{id}}')
-var uploadForm = document.getElementById('upload-form{{id}}')
-var uploadSubmit = document.getElementById('upload-submit{{id}}')
-var progressBar = document.querySelector('.progress-bar{{id}}')
-var uploadedImage = document.getElementById('uploaded-image{{id}}')
-function handleDragOver(e) {
-  e.preventDefault()
-  e.stopPropagation()
-  dropzone.classList.add('border-primary')
-}
-
-function handleDragLeave(e) {
-  e.preventDefault()
-  e.stopPropagation()
-  dropzone.classList.remove('border-primary')
-}
-
-function handleDrop(e) {
-  e.preventDefault()
-  e.stopPropagation()
-  dropzone.classList.remove('border-primary')
-
-  let files = e.dataTransfer.files
-
-  // Check if the file is an image
-  var isImage = /^image\//.test(files[0].type)
-
-  if (!isImage) {
-    alert('Please upload only image files.')
-    return
-  }
-
-  // Get form data
-  let formData = new FormData()
-  formData.append('file', files[0])
-
-  // Send form data via AJAX
-  let xhr = new XMLHttpRequest()
-  xhr.upload.addEventListener('progress', function (e) {
-    if (e.lengthComputable) {
-      let percentComplete = (e.loaded / e.total) * 100
-
-      progressBar.style.width = percentComplete.toFixed(0) + '%'
-      progressBar.innerHTML = percentComplete.toFixed(0) + '%'
-    }
-  })
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        progressBar.style.width = '100%'
-        uploadSubmit.disabled = true
-      } else {
-        alert('Upload failed.')
-      }
-    }
-  }
-
-  xhr.open('POST', uploadForm.action, true)
-  xhr.send(formData)
-
-  // Update file input and submixt button
-  updateInput(files)
-}
-
-function handleInputChange() {
-  let files = uploadBtn.files
-  updateInput(files)
-}
-
-function handleFormSubmit(e) {
-  e.preventDefault()
-
-  // Reset progress bar
-  progressBar.style.width = '0%'
-
-  // Get form data
-  let formData = new FormData()
-  formData.append('file', uploadBtn.files[0])
-
-  // Send form data via AJAX
-  let xhr = new XMLHttpRequest()
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        progressBar.style.width = '100%'
-        uploadSubmit.disabled = true
-      } else {
-        alert('Upload failed.')
-      }
-    }
-  }
-
-  xhr.upload.addEventListener('progress', function (e) {
-    if (e.lengthComputable) {
-      let percentComplete = (e.loaded / e.total) * 100
-      progressBar.style.width = percentComplete.toFixed(0) + '%'
-      progressBar.innerHTML = percentComplete.toFixed(0) + '%'
-    }
-  })
-
-  xhr.open('POST', uploadForm.action, true)
-  xhr.send(formData)
-}
-
-function updateInput(files) {
-  if (files.length > 0) {
-    let fileNames = []
-    for (let i = 0; i < files.length; i++) {
-      fileNames.push(files[i].name)
-    }
-    let url = URL.createObjectURL(files[0])
-    uploadedImage.src = url
-    // uploadedImage.style.display = 'block'
-    dropzone.style.display = 'none'
-    uploadedImage.style.cssText =
-      'display:block; max-width: 100%; max-height: 100%; width: auto; height: auto; margin: auto; border: 2px dashed #ccc;'
-
-    // dropzone.style.color = 'red'
-    // dropzone.style.fontWeight = 'bold'
-    // dropzone.innerHTML = fileNames.join(', ')
-    uploadSubmit.disabled = false
-  } else {
-    dropzone.innerHTML =
-      '<i class="fas fa-cloud-upload-alt"></i><div class="text-muted">Drag and drop files here or click to select files</div>'
-    uploadSubmit.disabled = true
-  }
-}
-
-// Add event listeners
-dropzone.addEventListener('dragover', handleDragOver)
-dropzone.addEventListener('dragleave', handleDragLeave)
-dropzone.addEventListener('drop', handleDrop)
-
-uploadBtn.addEventListener('change', handleInputChange)
-
-uploadForm.addEventListener('submit', handleFormSubmit)
-
-	</script>
     <script src="https://kit.fontawesome.com/8a8365505b.js" crossorigin="anonymous"></script>
-<!-- 	
-<script src="{% static 'javascript/uploadFile.js' %}"`?id={{id}}`> -->
+
 	
-</script>
+	<script src="{% static 'javascript/uploadFile.js' %}"></script>

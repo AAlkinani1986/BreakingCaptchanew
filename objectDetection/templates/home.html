@@ -17,7 +17,7 @@
     </div>
     <div class="comment_body">
       <p>{{ captcha.comments }}</p>
-      <img class="image_comment" src="../../media/{{captcha.image_path }}" alt="text" />
+      <img style="width: fit-content;" class="image_comment" src="../../media/{{captcha.image_path }}" alt="text" />
       <p class="answer_captcha">{{ captcha.text_solution}}</p>
       <div class="rate{{captcha.id}}">
         {% include 'star.html' with rateValue=captcha.stars_rate name=captcha.id  %}

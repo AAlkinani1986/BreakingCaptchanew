@@ -1,9 +1,8 @@
-
 let dropzone = document.getElementById('dropzone')
 let uploadBtn = document.getElementById('upload-btn')
 let uploadForm = document.getElementById('upload-form')
 let uploadSubmit = document.getElementById('upload-submit')
-let progressBar = document.querySelector('.progress-bar')
+let progressBar = document.getElementById('progress-bar')
 let uploadedImage = document.getElementById('uploaded-image')
 function handleDragOver(e) {
   e.preventDefault()
