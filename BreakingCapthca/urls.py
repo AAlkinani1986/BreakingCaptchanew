@@ -19,3 +19,6 @@ urlpatterns = [
     path("captchaBreaking/", views.captchaBreaking, name="captchaBreaking"),
     path("update-comment/", views.commentUpdate, name="update-comment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+admin.site.site_header = "Breaking Captcha administration"
+admin.site.site_title = "Breaking Captcha administration"
+admin.site.index_title = "Admin Panel"
